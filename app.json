@@ -1,8 +1,9 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/user/login/index",
     "pages/user/register/index",
-    "pages/index/index",
+    
     "pages/map/map",
     "pages/add_gourmet/add_gourmet",
     "pages/detail/detail"

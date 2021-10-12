@@ -95,6 +95,13 @@ Page({
 
     ,
   onLoad: function (options) {
+    let current = wx.Bmob.User.current();
+    if(!current){
+      console.log(current);
+      wx.navigateTo({
+        url: '/pages/user/login/index',
+      })
+    }
     // Do some initialize when page load.
     API.addLocationPoint()
   },

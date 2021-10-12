@@ -7,7 +7,8 @@ Page({
       success: function(user) {
         // Do stuff after successful login.
         common.showTip("登录成功");
-        wx.setStorageSync("objectId", user['objectId']);
+        console.log("user",user)
+        wx.setStorageSync("objectId", user.id);
         setTimeout(function () {
           wx.navigateTo({
             url: '/pages/index/index',
@@ -23,9 +24,7 @@ Page({
   },
   onLoad:function(){
     console.log("load")
-    // wx.navigateTo({
-    //   url: '/pages/index/index',
-    // })
+   
   },
   getUserInfo:function(){
     let current = wx.Bmob.User.current();
