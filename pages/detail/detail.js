@@ -139,8 +139,13 @@ Page({
        this.setData({
          commContent:e.detail.value
        })
+  },
+  clickCall(e){
+    console.log(this.data.gourmet.user_nickname)
+    wx.makePhoneCall({
+      phoneNumber: this.data.gourmet.user_nickname //仅为示例，并非真实的电话号码
+    })
   }
-
   ,addComment: function(e){
       var that = this;
       var content = this.data.commContent;

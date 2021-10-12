@@ -6,11 +6,14 @@ var gourmet_address = "";
 var gourmet_title = "";
 var gourmet_desc = "";
 var urls = [];
+var urlsid = [];
+var urlsidb = [];
 var headurl = "";//
 var headurlIndex = 0;
 var geopoint = null;
-var MAX_PIC_LENGTH = 6;
-
+var MAX_PIC_LENGTH = 3;
+var phone;
+var openid;
 var mDoing = false;
 
 function setLoading(yes){
@@ -35,6 +38,18 @@ Page({
       ,total_pics_number: MAX_PIC_LENGTH
     }
     ,onLoad: function(){
+
+      let current = wx.Bmob.User.current();
+      if (current) {
+        phone = current.get("username")
+        openid = current.get("openid")
+      }else{
+        // 未登录
+        wx.navigateTo({
+          url: '/pages/user/login/index',
+        })
+      }
+
       var that = this;
       //set the width and height
       // 动态设置map的宽和高
@@ -55,7 +70,56 @@ Page({
     this.chooseLocation()
   }
   //add pictures
-  ,add_pics:function(){
+  ,add_id:function(){
+    if(mDoing)return;
+    if(urlsid.length == MAX_PIC_LENGTH){
+      utils.showModal('错误','最多添加'+MAX_PIC_LENGTH+'张图片')
+      return;
+    }
+    
+    var that = this;
+      wx.chooseImage({
+        count: MAX_PIC_LENGTH - urlsid.length, // 最多MAX_PIC_LENGTH张图片
+        sizeType: ['compressed'],
+        sourceType: ['album', 'camera'],
+        success: function (res) {
+          // tempFilePath可以作为img标签的src属性显示图片
+          var tempFilePaths = res.tempFilePaths;
+          console.log('tempFilePaths', tempFilePaths);
+          //
+          if (tempFilePaths.length > 0) {
+              
+            for(var i = 0; i< tempFilePaths.length; i++){
+                setLoading(true);
+                console.log("uploading...")
+                var name = utils.getFileName()+i+".jpg";//上传的图片的别名
+                var file = new Bmob.File(name, [tempFilePaths[i]]);
+                console.log(name,tempFilePaths[i])
+                file.save().then(function (res) {
+                  console.log('upload ok',res.url());
+                  if(res.url()){
+                    urlsid.push(res.url());
+                  }
+                  //
+
+                  that.setData({
+                    urlsid: urlsid
+                    
+                  })
+                  setLoading(false);
+                  //
+                }, function (error) {
+                  setLoading(false);
+                  console.log('upload fail',error);
+                })
+            }
+          }
+
+        }
+      })
+  }
+   //add pictures
+   ,add_pics:function(){
     if(mDoing)return;
     if(urls.length == MAX_PIC_LENGTH){
       utils.showModal('错误','最多添加'+MAX_PIC_LENGTH+'张图片')
@@ -91,6 +155,54 @@ Page({
                     urls: urls
                     ,headurl: headurl
                     ,show_headurl: headurl == "" ? false : true
+                  })
+                  setLoading(false);
+                  //
+                }, function (error) {
+                  setLoading(false);
+                  console.log('upload fail',error);
+                })
+            }
+          }
+
+        }
+      })
+  }
+   //add pictures
+   ,add_idb:function(){
+    if(mDoing)return;
+    if(urlsidb.length == MAX_PIC_LENGTH){
+      utils.showModal('错误','最多添加'+MAX_PIC_LENGTH+'张图片')
+      return;
+    }
+    
+    var that = this;
+      wx.chooseImage({
+        count: MAX_PIC_LENGTH - urlsidb.length, // 最多MAX_PIC_LENGTH张图片
+        sizeType: ['compressed'],
+        sourceType: ['album', 'camera'],
+        success: function (res) {
+          // tempFilePath可以作为img标签的src属性显示图片
+          var tempFilePaths = res.tempFilePaths;
+          console.log('tempFilePaths', tempFilePaths);
+          //
+          if (tempFilePaths.length > 0) {
+              
+            for(var i = 0; i< tempFilePaths.length; i++){
+                setLoading(true);
+                console.log("uploading...")
+                var name = utils.getFileName()+i+".jpg";//上传的图片的别名
+                var file = new Bmob.File(name, [tempFilePaths[i]]);
+                console.log(name,tempFilePaths[i])
+                file.save().then(function (res) {
+                  console.log('upload ok',res.url());
+                  if(res.url()){
+                    urlsidb.push(res.url());
+                  }
+                  //
+
+                  that.setData({
+                    urlsidb: urlsidb
                   })
                   setLoading(false);
                   //
@@ -159,6 +271,17 @@ Page({
 
   // 新增一个美食点
   ,add_gourmet: function(){
+
+     // 开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
+    //  wx.getUserProfile({
+    //   desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+    //   success: (res) => {
+    //     console.log(res)
+        
+    //   }
+    // })
+    
+
       if(mDoing) return utils.showModal('噢漏','请稍后再试');
       console.log("新增美食点");
       console.log('geopoint',geopoint);
@@ -179,21 +302,34 @@ Page({
       if(gourmet_address.trim() === ""){
           return utils.showModal('错误','地址不能为空哦')
       }
+      if(urlsid.length<1){
+          return utils.showModal('错误','身份证不能为空哦')
+      }
+      if(urlsidb.length<1){
+          return utils.showModal('错误','营业执照不能为空哦')
+      }
       //
       setLoading(true);
       //
-      app.getUserInfo(userinfo=>{
+     
+      wx.getUserProfile({
+        desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+        success: (userinfo) => {
+          userinfo = userinfo.userInfo
+          console.log(userinfo)
         console.log(userinfo)
         var Gourmet = Bmob.Object.extend("gourmet");
         var gourmet = new Gourmet();
-        gourmet.set("user_nickname", userinfo.nickName);
-        gourmet.set("description", gourmet_desc);
+        gourmet.set("user_nickname",phone);
+        // gourmet.set("description", gourmet_desc);
         gourmet.set("head_url", headurl);
         var location = new Bmob.GeoPoint(geopoint);
         // var point = new Bmob.GeoPoint({latitude: 23.345644, longitude: 112.234454});
         gourmet.set("location", location);
-        gourmet.set("openid", userinfo.openid);
+        gourmet.set("openid", openid);
         gourmet.set("urls", urls);
+        gourmet.set("id_card", urlsid[0]);
+        gourmet.set("business", urlsidb[0]);
         gourmet.set("title", gourmet_title);
         gourmet.set("address", gourmet_address);
         gourmet.set("user_avatar", userinfo.avatarUrl);
@@ -213,7 +349,8 @@ Page({
               console.log('创建失败',error);
             }
         });
-      })
+      }
+    })
 
   }
 

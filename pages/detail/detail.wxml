@@ -21,7 +21,8 @@
 
 <view class="view_publisher">
     <image id="publisher_avatar" src="{{gourmet.user_avatar}}"></image>
-    <view id="publisher">{{gourmet.user_nickname}}</view>
+    <!-- <open-data id="publisher_avatar" type="userAvatarUrl"></open-data> -->
+    <view id="publisher" bindtap="clickCall">{{gourmet.user_nickname}}</view>
 </view>
 
 <view class="gourmet_info">

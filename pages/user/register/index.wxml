@@ -14,7 +14,7 @@
           <view class="weui-label">电话号码</view>
         </view>
         <view class="weui-cell__bd">
-            <input class="weui-input" value="1234" placeholder="请输入您的电话号码" name="phone" />
+            <input class="weui-input" value="" placeholder="请输入您的电话号码" name="phone" />
           </view>
       </view>
       <view class="weui-cell weui-cell_input">
@@ -22,7 +22,7 @@
           <view class="weui-label">密码</view>
         </view>
         <view class="weui-cell__bd">
-            <input class="weui-input" value="123456" placeholder="请输入您的密码" password name="password" />
+            <input class="weui-input" value="" placeholder="请输入您的密码" password name="password" />
           </view>
       </view>
       <view class="weui-cell weui-cell_input">
@@ -30,7 +30,7 @@
           <view class="weui-label">确认密码</view>
         </view>
         <view class="weui-cell__bd">
-            <input class="weui-input" value="123456" placeholder="请重新输入密码" password name="password1" />
+            <input class="weui-input" value="" placeholder="请重新输入密码" password name="password1" />
           </view>
       </view>
     </view>

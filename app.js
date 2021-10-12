@@ -57,6 +57,59 @@ App({
 })
 
 //网络获取用户信息
+function getUserInfoByNetworkNew(that,cb){
+
+  wx.login({
+  success: function(res) {
+    if (res.code) {
+        Bmob.User.requestOpenId(res.code, {//获取userData(根据个人的需要，如果需要获取userData的需要在应用密钥中配置你的微信小程序AppId和AppSecret，且在你的项目中要填写你的appId)
+          success: function(userData) {
+              //console.log('userData',userData) 
+              wx.getUserProfile({
+                desc: '用于完善会员资料',
+                  success: function(result) {
+                    var userInfo = result.userInfo;
+                    userInfo.openid = userData.openid;
+                    that.globalData.userInfo = userInfo;
+                    typeof cb == "function" && cb(that.globalData.userInfo)  
+                    //开始注册用户
+                    var WXUser = Bmob.Object.extend("wxuser");
+                    var wxuser = new WXUser();
+                    wxuser.set("openid",userData.openid);
+                    wxuser.set("nickname", userInfo.nickName);
+                    wxuser.set("avatar", userInfo.avatarUrl);
+                    wxuser.set("city", userInfo.city);
+                    wxuser.set("province", userInfo.province);
+                    wxuser.set("gender", userInfo.gender);
+                    //添加数据，第一个入口参数是null
+                    wxuser.save(null, {
+                        success: function(result) {
+                          // 添加成功，返回成功之后的objectId（注意：返回的属性名字是id，不是objectId），你还可以在Bmob的Web管理后台看到对应的数据
+                            console.log("wxuser创建成功, objectId:"+result.id);
+                        },
+                        error: function(result, error) {
+                          // 添加失败
+                          console.log('创建user失败');
+                        }
+                    });
+
+                  }
+              })                       
+          },
+          error: function(error) {
+              // Show the error message somewhere
+              console.log("Error: " + error.code + " " + error.message);
+          }
+      });
+
+    } else {
+      console.log('获取用户登录态失败！' + res.errMsg)
+    }
+  }
+})
+}
+
+//网络获取用户信息
 function getUserInfoByNetwork(that,cb){
 
   wx.login({
@@ -107,6 +160,7 @@ function getUserInfoByNetwork(that,cb){
   }
 })
 }
+
 
 //获取屏幕信息
 function getSystemInfo(cb){

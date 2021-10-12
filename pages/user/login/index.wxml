@@ -9,7 +9,7 @@
         <input placeholder="请输入您的密码" class="weui-input" password name="password"  />
     </view>
     <view class="btn-area">
-        <button formType="submit" class="weui-btn_primary">登录</button>
+        <button formType="submit" style="color:#ffffff;background-color: #1aad19;" class="weui-btn_primary">登录</button>
         <button formType="reset">重置</button>
         <!-- <button bindtap="getUserInfo">登录信息</button> -->
     </view>
