@@ -1,5 +1,7 @@
 {
   "pages": [
+    "pages/user/login/index",
+    "pages/user/register/index",
     "pages/index/index",
     "pages/map/map",
     "pages/add_gourmet/add_gourmet",

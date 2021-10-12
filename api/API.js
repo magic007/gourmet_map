@@ -6,7 +6,7 @@ var utils = require('../utils/util.js');
 
 module.exports = {
     //获取美食点接口
-    getGourmetByPage: function(page, pagesize, cb){
+    getGourmetByPage: function(page, pagesize,openid, cb){
       app.getLocationInfo(locationInfo=>{
         var Gourmet = Bmob.Object.extend("gourmet");
           var point = new Bmob.GeoPoint({
@@ -18,6 +18,9 @@ module.exports = {
           // location附近的位置
           //query.near("location", point);
           //query.withinGeoBox("location", southwestOfSF, northeastOfSF);
+          if(openid!=""){
+            query.equalTo("openid",openid);
+          }
           query.withinKilometers("location", point, 30000);
           // 每页个数
           query.limit(pagesize);

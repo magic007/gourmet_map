@@ -1,0 +1,43 @@
+<import src="../../../style/header" />
+<import src="../../../style/footer" />
+
+
+<view class="page__bd">
+  <template is="head"></template>
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">错误提示</view>
+    <view class="weui-cells__title">注册账号</view>
+    <view class="weui-cells weui-cells_after-title">
+      
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">电话号码</view>
+        </view>
+        <view class="weui-cell__bd">
+            <input class="weui-input" value="1234" placeholder="请输入您的电话号码" name="phone" />
+          </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">密码</view>
+        </view>
+        <view class="weui-cell__bd">
+            <input class="weui-input" value="123456" placeholder="请输入您的密码" password name="password" />
+          </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">确认密码</view>
+        </view>
+        <view class="weui-cell__bd">
+            <input class="weui-input" value="123456" placeholder="请重新输入密码" password name="password1" />
+          </view>
+      </view>
+    </view>
+    <view class="weui-btn-area">
+            <button class="weui-btn" type="primary" formType="submit" bindtap="showTopTips">立刻注册</button>
+        </view>
+  </form>
+</view>
+
+<template is="foot"></template>

@@ -1,6 +1,6 @@
 require('utils/bmob_init.js');
 var Bmob = require('utils/bmob.js');
-
+wx.Bmob = Bmob
 //app.js
 App({
   onLaunch: function () {

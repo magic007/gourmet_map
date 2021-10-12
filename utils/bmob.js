@@ -5328,6 +5328,7 @@
      * @see Bmob.User.signUp
      */
         signUp: function(attrs, options) {
+            console.log("attrs",attrs,this)
             var error;
             options = options || {};
 
@@ -5634,13 +5635,11 @@
             // var userData = Bmob.localStorage.getItem(Bmob._getBmobPath(
             //     Bmob.User._CURRENT_USER_KEY));
             var userData = false;
-            wx.getStorage({
-                key: Bmob._getBmobPath(Bmob.User._CURRENT_USER_KEY),
-                success: function(res) {
-                    var userData = res.data;
-                    console.log(res.data)
-                }
-            })
+            
+
+            var userData = wx.getStorageSync(Bmob._getBmobPath(Bmob.User._CURRENT_USER_KEY));
+            // console.log(Bmob.User._CURRENT_USER_KEY,userData,'ss')
+
 
             if (!userData) {
 
