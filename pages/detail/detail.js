@@ -84,10 +84,25 @@ Page({
     ,ic_unsupport: "/imgs/ic_unsupport.png"
   }
   ,onLoad: function(option){
+
+    let current = wx.Bmob.User.current();
+      if (current) {
+        let openid = current.get("openid")
+        console.log(openid,"openid")
+        this.setData({"openid":openid!=undefined?true:false})
+      }else{
+        // 未登录
+        wx.navigateTo({
+          url: '/pages/user/login/index',
+        })
+      }
+
       var that = this;
       console.log('option',option);
       if(option.item){
         gourmet = JSON.parse(option.item);
+        gourmet.urls.push(gourmet.id_card);
+        gourmet.urls.push(gourmet.business);
         that.setData({
           gourmet: gourmet 
         })

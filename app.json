@@ -10,8 +10,8 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#000000",
-    "navigationBarTitleText": "地道美食地图",
+    "navigationBarBackgroundColor": "#006000",
+    "navigationBarTitleText": "湘北服务",
     "navigationBarTextStyle": "white",
     "enablePullDownRefresh": false
   },

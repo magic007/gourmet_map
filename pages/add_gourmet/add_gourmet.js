@@ -302,12 +302,12 @@ Page({
       if(gourmet_address.trim() === ""){
           return utils.showModal('错误','地址不能为空哦')
       }
-      if(urlsid.length<1){
-          return utils.showModal('错误','身份证不能为空哦')
-      }
-      if(urlsidb.length<1){
-          return utils.showModal('错误','营业执照不能为空哦')
-      }
+      // if(urlsid.length<1){
+      //     return utils.showModal('错误','身份证不能为空哦')
+      // }
+      // if(urlsidb.length<1){
+      //     return utils.showModal('错误','营业执照不能为空哦')
+      // }
       //
       setLoading(true);
       //

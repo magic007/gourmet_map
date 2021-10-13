@@ -42,9 +42,9 @@
 </view>
 
         <view style="padding: 10px" class="center">
-            <view class="tips">身份证正面图一张</view>
+            <view class="tips">图片4一张</view>
             <view>
-                <button type="primary" bindtap="add_id">添加身份证</button>
+                <button type="primary" bindtap="add_id">添加图片4</button>
             </view>
             <view style="text-align:left">
             <image wx:for="{{urlsid}}" bindtap="preview" mode="aspectFill" style="width:{{img_width}}px;height:{{img_height}}px" class="thumbnail" src="{{item}}"></image>
@@ -52,9 +52,9 @@
         </view>
 
         <view style="padding: 10px" class="center">
-            <view class="tips">营业执照图一张</view>
+            <view class="tips">图片5图一张</view>
             <view>
-                <button type="primary" bindtap="add_idb">添加营业执照</button>
+                <button type="primary" bindtap="add_idb">添加图片5</button>
             </view>
             <view style="text-align:left">
             <image wx:for="{{urlsidb}}" bindtap="preview" mode="aspectFill" style="width:{{img_width}}px;height:{{img_height}}px" class="thumbnail" src="{{item}}"></image>

@@ -64,8 +64,8 @@ Page({
       } else {
         // 没有点的情况
         wx.showModal({
-          title: "周围没有推荐的地道美食",
-          content: "不如你来推荐一个？",
+          title: "暂无数据",
+          content: "不如你来上传一个？",
           success: function (res) {
             if (res.confirm) {
               console.log('用户点击确定')
@@ -87,6 +87,12 @@ Page({
     }
     //添加美食点点
     ,
+    logout(){
+      wx.Bmob.User.logOut();
+      wx.navigateTo({
+        url: '/pages/user/login/index',
+      })
+    },
   addPoint: function () {
       wx.navigateTo({
         url: '/pages/add_gourmet/add_gourmet'
@@ -147,7 +153,7 @@ Page({
   },
   onShareAppMessage: function () {
       return {
-        title: '地道美食地图',
+        title: '湘北服务',
         desc: '发现身边最地道的美食',
         path: '/pages/index/index'
       }

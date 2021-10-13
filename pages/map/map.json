@@ -1,6 +1,6 @@
 {
   "backgroundTextStyle":"light",
-  "navigationBarBackgroundColor": "#000000",
-  "navigationBarTitleText": "附近的美食",
+  "navigationBarBackgroundColor": "#006000",
+  "navigationBarTitleText": "我的地图",
   "navigationBarTextStyle":"white"
 }

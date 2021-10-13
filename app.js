@@ -42,6 +42,10 @@ App({
         })
     }
   }
+  ,getLocationInfoNew: function(cb){
+    cb(this.globalData.locationInfo)
+   
+  }
   ,getSystemInfo:getSystemInfo
   
   ,globalData:{

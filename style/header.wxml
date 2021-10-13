@@ -1,6 +1,6 @@
 <template name="head">
   <view class="page__hd i-header">
     <view class="i-header-h1 h50">湘北服务</view>
-    <view class="i-header-h1">为你服务</view>
+    <view class="i-header-h1"></view>
   </view>
 </template>
